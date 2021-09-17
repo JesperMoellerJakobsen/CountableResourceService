@@ -5,9 +5,9 @@ namespace API.Model
     public class CounterPatchInput
     {
         [Required]
-        public byte[] Version { get; set; }
+        public CounterPatchOption PatchOption { get; set; }
 
         [Required]
-        public CounterPatchOption PatchOption { get; set; }
+        public byte[] Version { get; set; }
     }
 }
