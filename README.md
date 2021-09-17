@@ -3,7 +3,7 @@
 A microservice using restful HTTP to provide access to a countable resource.
 Solves concurrency issues by using a threadsafe transactional approach with optimistic locking.
 
-Hosted in a docker container on '<HOSTNAME>':5001/counter
+Hosted in a docker container on <HOSTNAME>:5001/counter
 
 ## Instructions for interacting with microservice
 
