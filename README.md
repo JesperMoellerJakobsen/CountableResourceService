@@ -16,8 +16,8 @@ Increment counter:
 ```json
 PATCH <HOSTNAME>:5001/counter 
 {
-    "patchoption": 0
     "version": "AAAAAAAAB9I=",
+    "patchoption": 0
 }
 ```
 
@@ -25,7 +25,7 @@ Decrement counter:
 ```json
 PATCH <HOSTNAME>:5001/counter
 {
-    "patchoption": 1
     "version": "AAAAAAAAB9I=",
+    "patchoption": 1
 }
 ```
