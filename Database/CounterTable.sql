@@ -1,0 +1,7 @@
+CREATE TABLE [Counter](
+	[Id] INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[Value] INT NOT NULL,
+	[Version] ROWVERSION,
+);
+
+INSERT INTO [Counter](Value) VALUES (0);
