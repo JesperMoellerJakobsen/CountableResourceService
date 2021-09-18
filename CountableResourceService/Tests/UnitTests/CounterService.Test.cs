@@ -9,7 +9,6 @@ using Repositories.Repositories;
 
 namespace UnitTests
 {
-
     [TestFixture]
     public class CounterServiceTest
     {
