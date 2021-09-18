@@ -4,9 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>d9b20a97-e0cc-4409-83e5-ac1dbb72f34f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
+    <DockerfileTag>countable.resource.api</DockerfileTag>
+	<DockerfileFile>..\..\Dockerfile</DockerfileFile>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
   </ItemGroup>

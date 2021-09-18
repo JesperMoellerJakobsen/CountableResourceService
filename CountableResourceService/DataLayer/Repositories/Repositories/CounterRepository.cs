@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using Domain.Model;
@@ -11,16 +11,17 @@ namespace Repositories.Repositories
         private const string SqlDecrement = "UPDATE [counter] SET [value] = [value] -1 WHERE [version] = @version";
         private const string SqlSelect = "SELECT * FROM [counter]";
 
-        private readonly ConnectionStrings _connectionString;
-        public CounterRepository(ConnectionStrings connectionString)
+        private readonly IDbConnection _connection;
+        public CounterRepository(IDbConnection connection)
         {
-            _connectionString = connectionString;
+            _connection = connection;
         }
         public async Task<ICounter> GetCounter()
         {
-            await using var connection = new SqlConnection(_connectionString.ConnectionString);
-            await connection.OpenAsync();
-            return await connection.QueryFirstAsync<Counter>(SqlSelect);
+            using (_connection)
+            {
+                return await _connection.QueryFirstAsync<Counter>(SqlSelect);
+            }
         }
 
         public async Task<bool> TryIncrement(byte[] clientCounterVersion)
@@ -35,10 +36,11 @@ namespace Repositories.Repositories
 
         private async Task<bool> ExecuteQuery(string sqlStatement, byte[] version)
         {
-            await using var connection = new SqlConnection(_connectionString.ConnectionString);
-            await connection.OpenAsync();
-            var rowsUpdated = await connection.ExecuteAsync(sqlStatement, new { version });
-            return rowsUpdated == 1;
+            using (_connection)
+            {
+                var rowsUpdated = await _connection.ExecuteAsync(sqlStatement, new { version });
+                return rowsUpdated == 1;
+            }
         }
     }
 }

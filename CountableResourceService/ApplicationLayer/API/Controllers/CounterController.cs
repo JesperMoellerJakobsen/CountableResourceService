@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> CounterDecrementOrIncrement([FromBody] CounterPatchInput input)
+        public async Task<IActionResult> Patch([FromBody] CounterPatchInput input)
         {
             if (!ModelState.IsValid || input.Version == null)
                 return BadRequest();

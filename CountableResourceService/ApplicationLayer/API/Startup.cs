@@ -1,3 +1,5 @@
+using System.Data;
+using System.Data.SqlClient;
 using Domain.Model;
 using Domain.Services;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +25,7 @@ namespace API
             services.AddControllers();
             services.AddOptions();
             var connectionString = Configuration.GetConnectionString("DbConnectionString");
-            services.AddScoped<ConnectionStrings>(x => new ConnectionStrings { ConnectionString = connectionString });
+            services.AddScoped<IDbConnection>(_ => new SqlConnection(connectionString));
             services.AddScoped<ICounterService, CounterService>();
             services.AddScoped<ICounterRepository, CounterRepository>();
         }
