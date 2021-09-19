@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using API.Model;
 using Domain.Model;
 using Domain.Services;
-using CounterPatchOption = API.Model.CounterPatchOption;
 
 namespace API.Controllers
 {
