@@ -6,7 +6,7 @@ Solves concurrency issues by using a threadsafe transactional approach with opti
 ## Cluster setup
 ![Cluster setup](https://github.com/JesperMoellerJakobsen/CountableSwarm/blob/master/ArchitectureDiagram.png)
 
-## Instructions for interacting with microservice
+## Instructions for interacting with microservice (CountableResourceService)
 Hosted in a docker container on &lt;HOSTNAME&gt;:5001/counter
 
 Read counter:
