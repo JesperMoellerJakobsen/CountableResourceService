@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositories.RabbitMQStub;
 using Repositories.Repositories;
 
 namespace API
@@ -28,6 +29,7 @@ namespace API
             services.AddScoped<IDbConnection>(_ => new SqlConnection(connectionString));
             services.AddScoped<ICounterService, CounterService>();
             services.AddScoped<ICounterRepository, CounterRepository>();
+            services.AddScoped<IRabbitMqStub, RabbitMqStub>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

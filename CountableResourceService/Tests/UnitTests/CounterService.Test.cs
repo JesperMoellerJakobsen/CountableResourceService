@@ -5,6 +5,7 @@ using Domain.Model;
 using Domain.Services;
 using Moq;
 using NUnit.Framework;
+using Repositories.RabbitMQStub;
 using Repositories.Repositories;
 
 namespace UnitTests
@@ -13,6 +14,7 @@ namespace UnitTests
     public class CounterServiceTest
     {
         private Mock<ICounterRepository> _counterRepo;
+        private Mock<IRabbitMqStub> _rabbitStub;
         private CounterService _subjectUnderTest;
         private string _counterVersion;
         private byte[] _counterVersionBytes;
@@ -23,7 +25,8 @@ namespace UnitTests
             _counterVersion = "AAAAAAAAB9M=";
             _counterVersionBytes = Convert.FromBase64String(_counterVersion);
             _counterRepo = new Mock<ICounterRepository>();
-            _subjectUnderTest = new CounterService(_counterRepo.Object);
+            _rabbitStub = new Mock<IRabbitMqStub>();
+            _subjectUnderTest = new CounterService(_counterRepo.Object, _rabbitStub.Object);
         }
 
         [Test]
@@ -65,6 +68,7 @@ namespace UnitTests
             Assert.That(result.IsCompletedSuccessfully, Is.True);
             Assert.That(result.Result, Is.True);
             _counterRepo.Verify(x => x.TryIncrement(It.Is<byte[]>(y => y.SequenceEqual(_counterVersionBytes))), Times.Exactly(1));
+            _rabbitStub.Verify(x => x.PublishChangedCounterState(), Times.Exactly(1));
         }
 
         [Test]
@@ -81,6 +85,7 @@ namespace UnitTests
             Assert.That(result.IsCompletedSuccessfully, Is.True);
             Assert.That(result.Result, Is.True);
             _counterRepo.Verify(x => x.TryIncrement(It.Is<byte[]>(y => y.SequenceEqual(_counterVersionBytes))), Times.Exactly(1));
+            _rabbitStub.Verify(x => x.PublishChangedCounterState(), Times.Exactly(1));
         }
     }
 }
