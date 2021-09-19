@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using API.Model;
 using Domain.Model;
@@ -26,7 +27,7 @@ namespace API.Controllers
         [HttpPatch]
         public async Task<IActionResult> Patch([FromBody] CounterPatchInput input)
         {
-            if (!ModelState.IsValid || input.Version == null)
+            if (!ModelState.IsValid || !input.Version.Any())
                 return BadRequest();
 
             var operationSuccess = false;
